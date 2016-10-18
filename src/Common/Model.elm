@@ -1,5 +1,8 @@
 module Common.Model exposing (..)
 
+type alias Model =
+  {}
+
 type alias Project =
   { productBacklog: ProductBacklog
   , sprints: List Sprint
