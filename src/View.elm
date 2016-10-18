@@ -13,7 +13,7 @@ view model =
                     []
             , input [ type' "password" ]
                     []
-            , a [ class "waves-effect waves-light btn" ]
+            , a [ class "center-align waves-effect waves-light btn" ]
                 [ text "Login" ]
             ]
       ]
