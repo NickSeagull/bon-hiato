@@ -2,19 +2,21 @@ module View exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Common.Model exposing (Model)
-import Update exposing (Msg)
+import Model exposing (Model)
+import Login.View
 
-view : Model -> Html Msg
+view : Model -> Html msg
 view model =
-  div [ class "valign-wrapper"]
-      [ div [ class "valign center-block" ]
-            [ h1 [] [ text "Bon Hiato - Login" ]
-            , input [ type' "text", placeholder "User" ]
-                    []
-            , input [ type' "password" ]
-                    []
-            , a [ class "center-align waves-effect waves-light btn" ]
-                [ text "Login" ]
-            ]
-      ]
+    case model.currentLocation of
+        Model.Login ->
+            Login.View.view model
+
+        Model.ProductOwnerLocation ->
+            ProductOwner.View.view model
+
+        Model.ScrumMasterLocation ->
+            ScrumMaster.View.view model
+
+        Model.DeveloperLocation ->
+            Developer.View.view model
+

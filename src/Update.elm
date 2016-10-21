@@ -1,12 +1,9 @@
 module Update exposing (..)
 
-import Common.Model as Model exposing (Model)
+import Model exposing (..)
+import Login.Update exposing (Msg(..))
 
-type Msg
-  = NoOp
-
-
-update : Msg -> Model.Model -> (Model.Model, Cmd a)
+update : Msg -> Model.Model -> (Model.Model, Cmd Login.Update.Msg)
 update msg model =
-  case msg of
-    NoOp -> (model, Cmd.none)
+    case model.currentLocation of
+        Login -> Login.Update.update msg model
