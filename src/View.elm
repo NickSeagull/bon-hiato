@@ -9,7 +9,8 @@ view : Model -> Html Msg
 view model =
   div [ class "valign-wrapper"]
       [ div [ class "valign center-block" ]
-            [ input [ type' "text", placeholder "User" ]
+            [ h1 [] [ text "Bon Hiato - Login" ]
+            , input [ type' "text", placeholder "User" ]
                     []
             , input [ type' "password" ]
                     []
