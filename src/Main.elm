@@ -17,6 +17,7 @@ init = ( { currentLocation = Login
          , loggedAs = NotLogged 
          , username = ""
          , password = ""
+         , currentError = ""
          }
        , Cmd.none)
 

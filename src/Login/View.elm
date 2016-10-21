@@ -10,7 +10,9 @@ view : Model -> Html Msg
 view model =
   div [ class "valign-wrapper"]
       [ div [ class "valign center-block" ]
-            [ h1 [] [ text "Bon Hiato - Login" ]
+            [ h1 [ class "center-align" ] [ text "Bon Hiato - Login" ]
+            , p [ class "center-align loginError" ] 
+                [ text <| loginError model ]
             , input [ type' "text"
                     , placeholder "User" 
                     , onInput WriteUser
@@ -25,3 +27,9 @@ view model =
                 [ text "Login" ]
             ]
       ]
+loginError : Model -> String
+loginError m = 
+    if m.currentError == "" 
+    then ""
+    else "Login failure: " ++ m.currentError
+

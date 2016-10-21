@@ -9,6 +9,10 @@ body {
     width: 100%;
 }
 
+.loginError {
+    color: red;
+}
+
 input {
     text-align: center;
 }

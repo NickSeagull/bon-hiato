@@ -12,6 +12,7 @@ type alias Model =
     , loggedAs: User
     , username: String
     , password: String
+    , currentError: String
     }
 
 type Location

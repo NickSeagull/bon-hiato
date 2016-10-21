@@ -48,8 +48,8 @@ performLogin model =
             )
 
         _ ->
-            ( model
-            , makeCmd <| LoginFailed "Use productOwner, scrumMaster or developer"
+            ( { model | currentError = "Use productOwner, scrumMaster or developer as username for logging in" }
+            , Cmd.none
             )
 
 makeCmd : Msg -> Cmd Msg
