@@ -2,9 +2,11 @@ module Login.View exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Model exposing (..)
+import Login.Update exposing (Msg(..))
 
-view : Model -> Html msg
+view : Model -> Html Msg
 view model =
   div [ class "valign-wrapper"]
       [ div [ class "valign center-block" ]

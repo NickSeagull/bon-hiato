@@ -1,6 +1,6 @@
 module Login.Update exposing (update, Msg(..))
 
-import Model exposing (Model, User(..))
+import Model exposing (..)
 
 type Msg
     = PerformLogin 
@@ -8,41 +8,41 @@ type Msg
     | WritePass String
     | LoginFailed String
 
-update : Msg -> Model -> (Model, Cmd Msg)
+update : Msg -> Model.Model -> (Model.Model, Cmd Msg)
 update msg model =
     case msg of
         PerformLogin -> 
             performLogin model
 
         WriteUser user ->
-            { model | username = user }
+            ( { model | username = user } , Cmd.none )
 
         WritePass pass ->
-            { model | password = pass } 
+            ( { model | password = pass } , Cmd.none )
 
         _ ->
             (model, Cmd.none)
 
-performLogin : String -> String -> Model -> (Model, Cmd Msg)
-performLogin user password model =
+performLogin : Model.Model -> (Model.Model, Cmd Msg)
+performLogin model =
     case model.username of
         "productOwner" -> 
-            ( { model | loggedAs = ProductOwner "Pepe el PO"
-                      , location = ProductOwnerHome
+            ( { model | loggedAs = Model.ProductOwner "Pepe el PO"
+                      , currentLocation = Model.ProductOwnerLocation Model.ProductOwnerHome
               }
             , Cmd.none
             )
 
         "scrumMaster" -> 
-            ( { model | loggedAs = ScrumMaster "Sancho el SM"
-                      , location = ScrumMasterHome
+            ( { model | loggedAs = Model.ScrumMaster "Sancho el SM"
+                      , currentLocation = Model.ScrumMasterLocation Model.ScrumMasterHome
               }
             , Cmd.none
             )
 
         "developer" -> 
-            ( { model | loggedAs = Developer "Dario el D" 
-                      , location = DeveloperHome
+            ( { model | loggedAs = Model.Developer "Dario el D" 
+                      , currentLocation = Model.DeveloperLocation Model.DeveloperHome
               }
             , Cmd.none
             )

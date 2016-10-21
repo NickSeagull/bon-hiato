@@ -3,20 +3,24 @@ module View exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Model exposing (Model)
+import Login.Update
 import Login.View
+import ProductOwner.View
+import ScrumMaster.View
+import Developer.View
 
-view : Model -> Html msg
+view : Model -> Html Login.Update.Msg
 view model =
     case model.currentLocation of
         Model.Login ->
             Login.View.view model
 
-        Model.ProductOwnerLocation ->
+        Model.ProductOwnerLocation _ ->
             ProductOwner.View.view model
 
-        Model.ScrumMasterLocation ->
+        Model.ScrumMasterLocation _ ->
             ScrumMaster.View.view model
 
-        Model.DeveloperLocation ->
+        Model.DeveloperLocation _ ->
             Developer.View.view model
 

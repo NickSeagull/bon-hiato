@@ -13,6 +13,11 @@ main = App.program
   }
 
 init : (Model.Model, Cmd a)
-init = ({ currentLocation = Login, loggedAs = NotLogged }, Cmd.none)
+init = ( { currentLocation = Login
+         , loggedAs = NotLogged 
+         , username = ""
+         , password = ""
+         }
+       , Cmd.none)
 
 subscriptions _ = Sub.none
