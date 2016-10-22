@@ -2,6 +2,7 @@ module Materialize.Materialize
     exposing ( container
              , row
              , col
+             , navbar
              )
 
 import Html exposing (..)
@@ -24,4 +25,16 @@ row attrs content = genericWrapper "row" attrs content
 col : String -> List (Attribute msg) -> List (Html msg) -> Html msg 
 col size attrs content = genericWrapper ("col " ++ size) attrs content
 
+navbar : Html msg -> List (Attribute msg) -> List (Html msg) -> Html msg
+navbar brandLogo attrs content =
+    nav 
+        []
+        [ genericWrapper "nav-wrapper" [] 
+            [ brandLogo
+            , ul [ id "nav-mobile"
+                 , class "right hide-on-med-and-down"
+                 ]
+                 (List.map (\e -> li [] [e]) content)
+            ]
+        ]
 
