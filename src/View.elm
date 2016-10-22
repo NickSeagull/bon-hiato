@@ -8,8 +8,11 @@ import Login.View
 import ProductOwner.View
 import ScrumMaster.View
 import Developer.View
+import Messages exposing (Msg(..))
 
-view : Model -> Html Login.Update.Msg
+
+
+view : Model -> Html Msg
 view model =
     case model.currentLocation of
         Model.Login ->

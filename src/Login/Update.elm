@@ -1,14 +1,9 @@
-module Login.Update exposing (update, Msg(..))
+module Login.Update exposing (update)
 
 import Model exposing (..)
+import Messages exposing (Msg(..), LoginMsg(..))
 
-type Msg
-    = PerformLogin 
-    | WriteUser String
-    | WritePass String
-    | LoginFailed String
-
-update : Msg -> Model.Model -> (Model.Model, Cmd Msg)
+update : LoginMsg -> Model.Model -> (Model.Model, Cmd Msg)
 update msg model =
     case msg of
         PerformLogin -> 
