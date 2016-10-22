@@ -9,4 +9,5 @@ update : Msg -> Model.Model -> (Model.Model, Cmd Msg)
 update msg model =
     case msg of
         LMsg m -> Login.Update.update m model
-        _ -> ( model, Cmd.none )
+        Logout -> ( Model.initialModel, Cmd.none )
+        _ -> (model, Cmd.none)

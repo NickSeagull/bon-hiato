@@ -15,9 +15,6 @@ update msg model =
         WritePass pass ->
             ( { model | password = pass } , Cmd.none )
 
-        _ ->
-            (model, Cmd.none)
-
 performLogin : Model.Model -> (Model.Model, Cmd Msg)
 performLogin model =
     case model.username of

@@ -12,10 +12,11 @@ view model =
     div [] 
         [
         Materialize.navbar 
-            (a [class "brand-logo"] [ text "Bon Hiato" ] )
+            (greetUser model)
             []
             [ a [ onClick <| POMsg ManagePriorities ] [ text "Manage priorities" ]
             , a [ onClick <| POMsg EditUserStories ] [ text "User stories" ]
+            , a [ onClick Logout ] [ text "Logout" ]
             ]
         ]
 

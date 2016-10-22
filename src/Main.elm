@@ -1,7 +1,7 @@
 module Main exposing (..)
 
 import Html.App as App
-import Model exposing (Model, Location (..), User(..))
+import Model exposing (Model, Location (..), User(..), initialModel)
 import Update as Update
 import View as View
 
@@ -13,12 +13,7 @@ main = App.program
   }
 
 init : (Model.Model, Cmd a)
-init = ( { currentLocation = Login
-         , loggedAs = NotLogged 
-         , username = ""
-         , password = ""
-         , currentError = ""
-         }
+init = ( initialModel
        , Cmd.none)
 
 subscriptions _ = Sub.none

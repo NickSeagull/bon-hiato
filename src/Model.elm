@@ -5,6 +5,7 @@ module Model exposing
     , POLocation(..)
     , SMLocation(..)
     , DLocation(..)
+    , initialModel
     )
 
 type alias Model =
@@ -35,3 +36,11 @@ type User
     | ScrumMaster String
     | Developer String
     | NotLogged
+
+initialModel : Model
+initialModel = { currentLocation = Login
+         , loggedAs = NotLogged 
+         , username = ""
+         , password = ""
+         , currentError = ""
+         }
