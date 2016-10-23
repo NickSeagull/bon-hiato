@@ -31,7 +31,7 @@ navbar brandLogo attrs content =
         []
         [ genericWrapper "nav-wrapper" [] 
             [ a [ class "left brand-logo" ] [text brandLogo]
-            , ul [ id "nav-mobile"
+            , ul [ id "" -- nav-mobile"
                  , class "right"
                  ]
                  (List.map (\e -> li [] [e]) content)
