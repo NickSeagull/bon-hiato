@@ -20,7 +20,7 @@ performLogin model =
     case model.username of
         "productOwner" -> 
             ( { model | loggedAs = Model.ProductOwner "Pepe el PO"
-                      , currentLocation = Model.ProductOwnerLocation Model.ProductOwnerHome
+                      , currentLocation = Model.ProductOwnerLocation Model.Home
               }
             , Cmd.none
             )

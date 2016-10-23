@@ -6,6 +6,7 @@ module Messages exposing ( Msg (..)
 type Msg
     = LMsg LoginMsg
     | POMsg ProductOwnerMsg
+    | DMsg DeveloperMsg
     | Logout
 
 type LoginMsg
@@ -16,4 +17,7 @@ type LoginMsg
 type ProductOwnerMsg
     = ManagePriorities
     | EditUserStories
+    | POHome
 
+type DeveloperMsg
+    = DHome

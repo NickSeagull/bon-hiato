@@ -23,7 +23,9 @@ type Location
     | DeveloperLocation DLocation
 
 type POLocation
-    = ProductOwnerHome
+    = Home
+    | PriorityManagement
+    | UserStoryManagement
 
 type SMLocation
     = ScrumMasterHome
