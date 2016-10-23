@@ -10,12 +10,14 @@ import Messages exposing (Msg(..), ScrumMasterMsg(..))
 view : Model -> Html Msg
 view model =
     case model.currentLocation of
-        ProductOwnerLocation Home -> 
-            home model
-        ProductOwnerLocation PriorityManagement ->
-            priorityManagement model
-        ProductOwnerLocation UserStoryManagement -> 
-            editUserStories model
+        ScrumMasterLocation EstimationPage ->
+            estimation model
+        ScrumMasterLocation RiskManagementPage ->
+            riskManagement model
+        ScrumMasterLocation TaskAssignationPage ->
+            taskAssignment model
+        ScrumMasterLocation DataVisualizationPage ->
+            dataVisualization model
         _ -> home model
 
 template : Model -> List (Html Msg) -> Html Msg
@@ -38,58 +40,65 @@ home model =
     template model
         [ p [] [ text "Welcome message or data" ] ]
 
-priorityManagement : Model -> Html Msg
-priorityManagement model =
+estimation : Model -> Html Msg
+estimation model =
+    template model
+        [ Materialize.row [] [ h2 [] [text "What do you want to estimate?" ] ]
+        , Materialize.row [] [ button [class "btn"] [ text "Sprints" ] ]
+        , Materialize.row [] [ button [class "btn"] [ text "Projects" ] ]
+        , Materialize.row [] [ button [class "btn"] [ text "Requirements" ] ]
+        ]
+
+riskManagement : Model -> Html Msg
+riskManagement model =
     template model
         [ table []
             [ tr []
                 [ th []
-                    [ text "ID" ]
+                    [ text "Event" ]
                 , th []
-                    [ text "Name" ]
+                    [ text "Likelihood" ]
                 , th []
-                    [ text "Initial effort" ]
+                    [ text "Impact" ]
+                , th []
+                    [ text "Priority" ]
+                , th []
+                    [ text "Solution" ]
+                , th []
+                    [ text "How" ]
+                , th []
+                    [ text "Who" ]
+                , th []
+                    [ text "By when" ]
                 , th []
                     [ text "" ]
                 ]
-            , tr [] 
+             , tr []
                 [ td []
-                    [ text "TEST-01" ]
+                    [ text "Server failure" ]
                 , td []
-                    [ text "Test" ]
+                    [ text "Very high" ]
                 , td []
-                    [ text "4" ]
-                ]
-            , tr [] 
-                [ td []
-                    [ text "TEST-02" ]
-                , td []
-                    [ text "Test" ]
+                    [ text "Very low" ]
                 , td []
                     [ text "1" ]
+                , td []
+                    [ text "Throw the server away" ]
+                , td []
+                    [ text "I don't know" ]
+                , td []
+                    [ text "Hodor" ]
+                , td []
+                    [ text "Tomorrow" ]
+                , td []
+                    [ button [class "btn"] [text "Edit" ]]
                 ]
-            , tr [] 
-                [ td []
-                    [ text "TEST-03" ]
-                , td []
-                    [ text "Test" ]
-                , td []
-                    [ text "5" ]
-                ]
-
-            , tr [] 
-                [ td []
-                    [ text "TEST-04" ]
-                , td []
-                    [ text "Test" ]
-                , td []
-                    [ text "2" ]
-                ]
+            , button [class "btn"] [ text "Add" ]
             ]
         ]
 
-editUserStories : Model -> Html Msg
-editUserStories model =
+taskAssignment : Model -> Html Msg
+taskAssignment model =
     template model
         [ table []
             [ tr []
@@ -99,8 +108,14 @@ editUserStories model =
                     [ text "Name" ]
                 , th []
                     [ text "Description" ]
+                , th []
+                    [ text "Priority" ]
+                , th []
+                    [ text "Assignee" ]
+                , th []
+                    [ text "" ]
                 ]
-            , tr [] 
+             , tr []
                 [ td []
                     [ text "TEST-01" ]
                 , td []
@@ -108,41 +123,19 @@ editUserStories model =
                 , td []
                     [ text "Hodor hodor hodor hodor." ]
                 , td []
-                    [ text "Edit   Delete" ]
-                ]
-            , tr [] 
-                [ td []
-                    [ text "TEST-02" ]
+                    [ text "1" ]
                 , td []
-                    [ text "Test" ]
+                    [ text "developer" ]
                 , td []
-                    [ text "Hodor hodor hodor hodor." ]
-                , td []
-                    [ text "Edit   Delete" ]
-                ]
-            , tr [] 
-                [ td []
-                    [ text "TEST-03" ]
-                , td []
-                    [ text "Test" ]
-                , td []
-                    [ text "Hodor hodor hodor hodor." ]
-                , td []
-                    [ text "Edit   Delete" ]
-                ]
-
-            , tr [] 
-                [ td []
-                    [ text "TEST-04" ]
-                , td []
-                    [ text "Test" ]
-                , td []
-                    [ text "Hodor hodor hodor hodor." ]
-                , td []
-                    [ text "Edit   Delete" ]
+                    [ button [class "btn"] [text "Edit" ]]
                 ]
             ]
         ]
+
+dataVisualization : Model -> Html Msg
+dataVisualization model =
+    template model
+        [ img [ src "img/burndown.jpg" ] [] ]
 
 greetUser : Model -> String
 greetUser model =

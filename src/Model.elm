@@ -29,6 +29,10 @@ type POLocation
 
 type SMLocation
     = ScrumMasterHome
+    | EstimationPage
+    | RiskManagementPage
+    | TaskAssignationPage
+    | DataVisualizationPage
 
 type DLocation
     = DeveloperHome
