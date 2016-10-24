@@ -1,7 +1,13 @@
 # Bon Hiato
 ## An app for managing projects
 
-**Use cases:**  
+### How to build
+
+- `npm install`: Installs dependencies
+- `npm run build`: Compiles the project
+- `npm run start`: Runs the app
+
+### Use cases:
 - A **product owner** can:
   - Assign priorities
   - Edit user stories
