@@ -3,6 +3,7 @@
 
 ### How to build
 
+- `npm install -g purescript bower pulp`: Installs required tools
 - `npm install`: Installs dependencies
 - `npm run build`: Compiles the project
 - `npm run start`: Runs the app
