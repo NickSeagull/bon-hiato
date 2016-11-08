@@ -1,31 +1,31 @@
-module Developer.View exposing (..)
+module Developer.View where
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.Events exposing (..)
-import Model exposing (..)
+import Pux
+import Pux.Attributes
+import Pux.Events
+import Model
 import Materialize.Materialize as Materialize
-import Messages exposing (Msg(..), ProductOwnerMsg(..))
+import Messages (Msg(..), ProductOwnerMsg(..))
 
-view : Model -> Html Msg
+view :: Html -> Msg Model
 view model =
     case model.currentLocation of
         _ -> home model
 
-template : Model -> List (Html Msg) -> Html Msg
-template model content = 
-    div [ class "center" ] 
-        (( Materialize.navbar 
+template :: List (Html Msg) -> Model -> Html Msg
+template model content =
+    div [ className "center" ]
+        (( Materialize.navbar
             (greetUser model)
             []
             [ a [ onClick Logout ] [ text "Logout" ]
             ] )
         :: content)
 
-home : Model -> Html Msg
+home :: Model -> Html Msg
 home model =
     template model
-        [ h1 [] [ text "Tasks assigned to me" ] 
+        [ h1 [] [ text "Tasks assigned to me" ]
         , taskView
         ]
 
@@ -49,7 +49,7 @@ taskView =
             , td []
                 [ text "2.5" ]
             , td []
-                [ a [ class "waves-effect waves-light btn" ] [ text "Log hours" ] ]
+                [ a [ className "waves-effect waves-light btn" ] [ text "Log hours" ] ]
             ]
         , tr []
             [ td []
@@ -59,10 +59,10 @@ taskView =
             , td []
                 [ text "7" ]
             , td []
-                [ a [ class "waves-effect waves-light btn" ] [ text "Log hours" ] ]
+                [ a [ className "waves-effect waves-light btn" ] [ text "Log hours" ] ]
             ]
         ]
 
-greetUser : Model -> String
+greetUser :: Model -> String
 greetUser model =
     model.username ++ " - Dashboard"
