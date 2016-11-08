@@ -1,14 +1,13 @@
-module Model exposing 
-    ( Model
-    , Location(..)
-    , User(..)
-    , POLocation(..)
-    , SMLocation(..)
-    , DLocation(..)
-    , initialModel
-    )
+module Model where  ( Model
+                    , Location(..)
+                    , User(..)
+                    , POLocation(..)
+                    , SMLocation(..)
+                    , DLocation(..)
+                    , initialModel
+                    )
 
-type alias Model =
+type Model =
     { currentLocation: Location
     , loggedAs: User
     , username: String
@@ -16,37 +15,37 @@ type alias Model =
     , currentError: String
     }
 
-type Location
+data Location
     = Login
     | ProductOwnerLocation POLocation
     | ScrumMasterLocation SMLocation
     | DeveloperLocation DLocation
 
-type POLocation
+data POLocation
     = Home
     | PriorityManagement
     | UserStoryManagement
 
-type SMLocation
+data SMLocation
     = ScrumMasterHome
     | EstimationPage
     | RiskManagementPage
     | TaskAssignationPage
     | DataVisualizationPage
 
-type DLocation
+data DLocation
     = DeveloperHome
 
-type User
+data User
     = ProductOwner String
     | ScrumMaster String
     | Developer String
     | NotLogged
 
-initialModel : Model
-initialModel = { currentLocation = Login
-         , loggedAs = NotLogged 
-         , username = ""
-         , password = ""
-         , currentError = ""
+initialModel :: Model
+initialModel = { currentLocation : Login
+         , loggedAs : NotLogged
+         , username : ""
+         , password : ""
+         , currentError : ""
          }

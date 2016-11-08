@@ -1,32 +1,32 @@
-module Messages exposing ( Msg (..)
-                         , LoginMsg (..)
-                         , ProductOwnerMsg (..)
-                         , ScrumMasterMsg (..)
-                         )
+module Messages where ( Msg (..)
+                      , LoginMsg (..)
+                      , ProductOwnerMsg (..)
+                      , ScrumMasterMsg (..)
+                      )
 
-type Msg
+data Msg
     = LMsg LoginMsg
     | POMsg ProductOwnerMsg
     | DMsg DeveloperMsg
     | SMMsg ScrumMasterMsg
     | Logout
 
-type LoginMsg
-    = PerformLogin 
+data LoginMsg
+    = PerformLogin
     | WriteUser String
     | WritePass String
 
-type ProductOwnerMsg
+data ProductOwnerMsg
     = ManagePriorities
     | EditUserStories
     | POHome
 
-type DeveloperMsg
+data DeveloperMsg
     = DHome
 
-type ScrumMasterMsg
+data ScrumMasterMsg
     = SMHome
-    | Estimation 
+    | Estimation
     | RiskManagement
     | TaskAssignation
     | DataVisualization

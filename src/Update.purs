@@ -1,17 +1,15 @@
-module Update exposing (..)
+module Update where (..)
 
-import Model exposing (..)
-import Messages exposing (..)
+import Model where (..)
+import Messages where (..)
 import Login.Update
 import ProductOwner.Update
 import ScrumMaster.Update
 
 
-update : Msg -> Model.Model -> (Model.Model, Cmd Msg)
-update msg model =
-    case msg of
-        LMsg m -> Login.Update.update m model
-        SMMsg m -> ScrumMaster.Update.update m model
-        POMsg m -> ProductOwner.Update.update m model
-        Logout -> ( Model.initialModel, Cmd.none )
-        _ -> (model, Cmd.none)
+update :: Msg -> Model.Model -> Model.Model
+update (LMsg m) model = Login.Update.update m model
+update (SMMsg m) model = ScrumMaster.Update.update m model
+update (POMsg m) model = ProductOwner.Update.update m model
+update Logout model = ( Model.initialModel, Cmd.none )
+update _ model = (model, Cmd.none)
