@@ -1,9 +1,19 @@
-module Main where
+module Main exposing (..)
 
-import Prelude
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (CONSOLE, log)
+import Html.App as App
+import Model exposing (Model, Location (..), User(..), initialModel)
+import Update as Update
+import View as View
 
-main :: forall e. Eff (console :: CONSOLE | e) Unit
-main = do
-  log "Hello sailor!"
+main = App.program
+  { init          = init
+  , view          = View.view
+  , update        = Update.update
+  , subscriptions = subscriptions
+  }
+
+init : (Model.Model, Cmd a)
+init = ( initialModel
+       , Cmd.none)
+
+subscriptions _ = Sub.none
