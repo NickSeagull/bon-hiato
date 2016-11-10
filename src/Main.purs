@@ -1,19 +1,18 @@
-module Main exposing (..)
+module Main where
 
-import Html.App as App
-import Model exposing (Model, Location (..), User(..), initialModel)
-import Update as Update
-import View as View
+import Pux (start, fromSimple, renderToDOM)
+import Model where (Model, Location (..), User(..), initialModel)
+import Update.update as update
+import View.view as view
 
-main = App.program
-  { init          = init
-  , view          = View.view
-  , update        = Update.update
-  , subscriptions = subscriptions
-  }
+main = do
 
-init : (Model.Model, Cmd a)
-init = ( initialModel
-       , Cmd.none)
+  App.program <- start
+      {   init          : init
+        , view          : view
+        , update        : update
+        , inputs: []
+      }
 
-subscriptions _ = Sub.none
+init :: Model.Model
+init =  initialModel
