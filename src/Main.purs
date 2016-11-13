@@ -1,9 +1,18 @@
 module Main where
 
-import Prelude
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (CONSOLE, log)
+import Pux (start, fromSimple, renderToDOM)
+import Model where (Model, Location (..), User(..), initialModel)
+import Update.update as update
+import View.view as view
 
-main :: forall e. Eff (console :: CONSOLE | e) Unit
 main = do
-  log "Hello sailor!"
+
+  App.program <- start
+      {   init          : init
+        , view          : view
+        , update        : update
+        , inputs: []
+      }
+
+init :: Model.Model
+init =  initialModel
