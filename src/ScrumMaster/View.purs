@@ -1,13 +1,14 @@
-module ScrumMaster.View exposing (..)
+module ScrumMaster.View where
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.Events exposing (..)
-import Model exposing (..)
+import Prelude
+import Pux.Html
+import Pux.Html.Attributes
+import Pux.Html.Events
+import Model
 import Materialize.Materialize as Materialize
-import Messages exposing (Msg(..), ScrumMasterMsg(..))
+import Messages (Msg(..), ScrumMasterMsg(..))
 
-view : Model -> Html Msg
+view :: Model -> Html Msg
 view model =
     case model.currentLocation of
         ScrumMasterLocation EstimationPage ->
@@ -20,10 +21,10 @@ view model =
             dataVisualization model
         _ -> home model
 
-template : Model -> List (Html Msg) -> Html Msg
-template model content = 
-    div [ class "center" ] 
-        (( Materialize.navbar 
+template :: Model -> List (Html Msg) -> Html Msg
+template model content =
+    div [ classname "center" ]
+        (( Materialize.navbar
             (greetUser model)
             []
             [ a [ onClick <| SMMsg SMHome ] [ text "Home" ]
@@ -35,21 +36,21 @@ template model content =
             ] )
         :: content)
 
-home : Model -> Html Msg
+home :: Model -> Html Msg
 home model =
     template model
         [ p [] [ text "Welcome message or data" ] ]
 
-estimation : Model -> Html Msg
+estimation :: Model -> Html Msg
 estimation model =
     template model
         [ Materialize.row [] [ h2 [] [text "What do you want to estimate?" ] ]
-        , Materialize.row [] [ button [class "btn"] [ text "Sprints" ] ]
-        , Materialize.row [] [ button [class "btn"] [ text "Projects" ] ]
-        , Materialize.row [] [ button [class "btn"] [ text "Requirements" ] ]
+        , Materialize.row [] [ button [classname "btn"] [ text "Sprints" ] ]
+        , Materialize.row [] [ button [classname "btn"] [ text "Projects" ] ]
+        , Materialize.row [] [ button [classname "btn"] [ text "Requirements" ] ]
         ]
 
-riskManagement : Model -> Html Msg
+riskManagement :: Model -> Html Msg
 riskManagement model =
     template model
         [ table []
@@ -91,13 +92,13 @@ riskManagement model =
                 , td []
                     [ text "Tomorrow" ]
                 , td []
-                    [ button [class "btn"] [text "Edit" ]]
+                    [ button [classname "btn"] [text "Edit" ]]
                 ]
-            , button [class "btn"] [ text "Add" ]
+            , button [classname "btn"] [ text "Add" ]
             ]
         ]
 
-taskAssignment : Model -> Html Msg
+taskAssignment :: Model -> Html Msg
 taskAssignment model =
     template model
         [ table []
@@ -127,16 +128,16 @@ taskAssignment model =
                 , td []
                     [ text "developer" ]
                 , td []
-                    [ button [class "btn"] [text "Edit" ]]
+                    [ button [classname "btn"] [text "Edit" ]]
                 ]
             ]
         ]
 
-dataVisualization : Model -> Html Msg
+dataVisualization :: Model -> Html Msg
 dataVisualization model =
     template model
         [ img [ src "img/burndown.jpg" ] [] ]
 
-greetUser : Model -> String
+greetUser :: Model -> String
 greetUser model =
     model.username ++ " - Dashboard"
