@@ -13,6 +13,8 @@ data Location
     | ProductOwnerLocation POLocation
     | ScrumMasterLocation SMLocation
     | DeveloperLocation DLocation
+    | ProjectScreen
+
 
 data POLocation
     = Home

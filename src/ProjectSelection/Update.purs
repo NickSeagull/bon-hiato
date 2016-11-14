@@ -1,4 +1,4 @@
-module Login.Update (update) where
+module ProjectSelection.Update (update) where
 
 import Prelude
 
@@ -15,17 +15,17 @@ performLogin model =
     case model.username of
         "productOwner" ->
             model { loggedAs = ProductOwner "Pepe el PO"
-                  , currentLocation = ProjectScreen
+                  , currentLocation = ProductOwnerLocation Home
                   }
 
         "scrumMaster" ->
             model { loggedAs = ScrumMaster "Sancho el SM"
-                  , currentLocation = ProjectScreen
+                  , currentLocation = ScrumMasterLocation ScrumMasterHome
                   }
 
         "developer" ->
             model { loggedAs = Developer "Dario el D"
-                  , currentLocation = ProjectScreen 
+                  , currentLocation = DeveloperLocation DeveloperHome
                   }
 
         _ ->

@@ -9,6 +9,7 @@ import Login.View as LView
 import ProductOwner.View as POView
 import ScrumMaster.View as SMView
 import Developer.View as DView
+import ProjectSelection.View as PSView
 import Messages
 
 
@@ -27,3 +28,6 @@ view model =
 
         DeveloperLocation _ ->
             DView.view model
+
+        ProjectScreen ->
+            PSView.view model
