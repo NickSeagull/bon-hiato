@@ -1,42 +1,45 @@
-module ProductOwner.View exposing (..)
+module ProductOwner.View where
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.Events exposing (..)
-import Model exposing (..)
-import Materialize.Materialize as Materialize
-import Messages exposing (Msg(..), ProductOwnerMsg(..))
+import Prelude hiding (div)
+import Pux.Html
+import Pux.Html.Attributes
+import Pux.Html.Events
+import Model
+import Materialize.Core as Materialize
+import Messages (Msg(..), ProductOwnerMsg(..))
+import Data.Array
 
-view : Model -> Html Msg
+view :: Model -> Html Msg
 view model =
     case model.currentLocation of
-        ProductOwnerLocation Home -> 
+        ProductOwnerLocation Home ->
             home model
         ProductOwnerLocation PriorityManagement ->
             priorityManagement model
-        ProductOwnerLocation UserStoryManagement -> 
+        ProductOwnerLocation UserStoryManagement ->
             editUserStories model
         _ -> home model
 
-template : Model -> List (Html Msg) -> Html Msg
-template model content = 
-    div [ class "center" ] 
-        (( Materialize.navbar 
+
+template :: Model -> Array (Html Msg) -> Html Msg
+template model content =
+    div [ className "center" ]
+        (( Materialize.navbar
             (greetUser model)
             []
-            [ a [ onClick <| POMsg POHome ] [ text "Home" ]
-            , a [ onClick <| POMsg ManagePriorities ] [ text "Manage priorities" ]
-            , a [ onClick <| POMsg EditUserStories ] [ text "User stories" ]
-            , a [ onClick Logout ] [ text "Logout" ]
+            [ a [ onClick (const $ POMsg POHome) ] [ text "Home" ]
+            , a [ onClick (const $ POMsg ManagePriorities) ] [ text "Manage priorities" ]
+            , a [ onClick (const $ POMsg EditUserStories) ] [ text "User stories" ]
+            , a [ onClick (const Logout) ] [ text "Logout" ]
             ] )
-        :: content)
+        : content)
 
-home : Model -> Html Msg
+home :: Model -> Html Msg
 home model =
     template model
         [ p [] [ text "Welcome message or data" ] ]
 
-priorityManagement : Model -> Html Msg
+priorityManagement :: Model -> Html Msg
 priorityManagement model =
     template model
         [ table []
@@ -50,7 +53,7 @@ priorityManagement model =
                 , th []
                     [ text "" ]
                 ]
-            , tr [] 
+            , tr []
                 [ td []
                     [ text "TEST-01" ]
                 , td []
@@ -58,7 +61,7 @@ priorityManagement model =
                 , td []
                     [ text "4" ]
                 ]
-            , tr [] 
+            , tr []
                 [ td []
                     [ text "TEST-02" ]
                 , td []
@@ -66,7 +69,7 @@ priorityManagement model =
                 , td []
                     [ text "1" ]
                 ]
-            , tr [] 
+            , tr []
                 [ td []
                     [ text "TEST-03" ]
                 , td []
@@ -75,7 +78,7 @@ priorityManagement model =
                     [ text "5" ]
                 ]
 
-            , tr [] 
+            , tr []
                 [ td []
                     [ text "TEST-04" ]
                 , td []
@@ -86,7 +89,7 @@ priorityManagement model =
             ]
         ]
 
-editUserStories : Model -> Html Msg
+editUserStories :: Model -> Html Msg
 editUserStories model =
     template model
         [ table []
@@ -98,7 +101,7 @@ editUserStories model =
                 , th []
                     [ text "Description" ]
                 ]
-            , tr [] 
+            , tr []
                 [ td []
                     [ text "TEST-01" ]
                 , td []
@@ -108,7 +111,7 @@ editUserStories model =
                 , td []
                     [ text "Edit   Delete" ]
                 ]
-            , tr [] 
+            , tr []
                 [ td []
                     [ text "TEST-02" ]
                 , td []
@@ -118,7 +121,7 @@ editUserStories model =
                 , td []
                     [ text "Edit   Delete" ]
                 ]
-            , tr [] 
+            , tr []
                 [ td []
                     [ text "TEST-03" ]
                 , td []
@@ -129,7 +132,7 @@ editUserStories model =
                     [ text "Edit   Delete" ]
                 ]
 
-            , tr [] 
+            , tr []
                 [ td []
                     [ text "TEST-04" ]
                 , td []
@@ -142,6 +145,6 @@ editUserStories model =
             ]
         ]
 
-greetUser : Model -> String
+greetUser :: Model -> String
 greetUser model =
-    model.username ++ " - Dashboard"
+    model.username <> " - Dashboard"

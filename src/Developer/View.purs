@@ -1,33 +1,36 @@
-module Developer.View exposing (..)
+module Developer.View where
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.Events exposing (..)
-import Model exposing (..)
-import Materialize.Materialize as Materialize
-import Messages exposing (Msg(..), ProductOwnerMsg(..))
+import Prelude hiding (div)
 
-view : Model -> Html Msg
+import Pux.Html
+import Pux.Html.Attributes
+import Pux.Html.Events
+import Model
+import Materialize.Core as Materialize
+import Messages
+import Data.Array
+
+view :: Model -> Html Msg
 view model =
     case model.currentLocation of
         _ -> home model
 
-template : Model -> List (Html Msg) -> Html Msg
-template model content = 
-    div [ class "center" ] 
-        (( Materialize.navbar 
+template :: Array (Html Msg) -> Model -> Html Msg
+template content model =
+    div [ className "center" ]
+        (( Materialize.navbar
             (greetUser model)
             []
-            [ a [ onClick Logout ] [ text "Logout" ]
+            [ a [ onClick (const Logout) ] [ text "Logout" ]
             ] )
-        :: content)
+        : content)
 
-home : Model -> Html Msg
+home :: Model -> Html Msg
 home model =
-    template model
-        [ h1 [] [ text "Tasks assigned to me" ] 
+    template
+        [ h1 [] [ text "Tasks assigned to me" ]
         , taskView
-        ]
+        ] model
 
 taskView =
     table []
@@ -49,7 +52,7 @@ taskView =
             , td []
                 [ text "2.5" ]
             , td []
-                [ a [ class "waves-effect waves-light btn" ] [ text "Log hours" ] ]
+                [ a [ className "waves-effect waves-light btn" ] [ text "Log hours" ] ]
             ]
         , tr []
             [ td []
@@ -59,10 +62,10 @@ taskView =
             , td []
                 [ text "7" ]
             , td []
-                [ a [ class "waves-effect waves-light btn" ] [ text "Log hours" ] ]
+                [ a [ className "waves-effect waves-light btn" ] [ text "Log hours" ] ]
             ]
         ]
 
-greetUser : Model -> String
+greetUser :: Model -> String
 greetUser model =
-    model.username ++ " - Dashboard"
+    model.username <> " - Dashboard"

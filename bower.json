@@ -1,0 +1,21 @@
+{
+  "name": "bon-hiato",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-console": "^1.0.0",
+    "purescript-pux": "^7.0.0",
+    "purescript-arrays": "^3.0.0",
+    "purescript-exceptions": "^2.0.0"
+  },
+  "devDependencies": {},
+  "resolutions": {
+    "purescript-console": "^2.0.0",
+    "purescript-eff": "^2.0.0",
+    "purescript-prelude": "~2.1.0"
+  }
+}
