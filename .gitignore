@@ -7,3 +7,4 @@
 dist/elm.js
 .psc-ide-port
 dist/compiled.js
+npm-debug.log
