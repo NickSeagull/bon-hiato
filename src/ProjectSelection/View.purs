@@ -14,14 +14,6 @@ view model =
   div [ className "valign-wrapper"]
       [ div [ className "valign center-block" ]
             [ h1 [ className "center-align" ] [ text "Bon Hiato - Project selection" ]
-            , a[className "dropdown-button btn", attr "data-activates" "projectDropdown"][]
-            , ul [id_ "projectDropdown", className "dropdown-content"]
-              [ li
-                  []
-                  [ a
-                      [href "#"]
-                      [text "Proyecto1"]
-                  ]
-              ]
+            , a[className "waves-effect waves-light btn"][text "Proyecto 1"]
            ]
       ]
