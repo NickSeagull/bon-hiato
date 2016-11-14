@@ -1,33 +1,36 @@
 module Developer.View where
 
-import Pux
-import Pux.Attributes
-import Pux.Events
-import Model
-import Materialize.Materialize as Materialize
-import Messages (Msg(..), ProductOwnerMsg(..))
+import Prelude hiding (div)
 
-view :: Html -> Msg Model
+import Pux.Html
+import Pux.Html.Attributes
+import Pux.Html.Events
+import Model
+import Materialize.Core as Materialize
+import Messages
+import Data.Array
+
+view :: Model -> Html Msg
 view model =
     case model.currentLocation of
         _ -> home model
 
-template :: List (Html Msg) -> Model -> Html Msg
-template model content =
+template :: Array (Html Msg) -> Model -> Html Msg
+template content model =
     div [ className "center" ]
         (( Materialize.navbar
             (greetUser model)
             []
-            [ a [ onClick Logout ] [ text "Logout" ]
+            [ a [ onClick (const Logout) ] [ text "Logout" ]
             ] )
-        :: content)
+        : content)
 
 home :: Model -> Html Msg
 home model =
-    template model
+    template
         [ h1 [] [ text "Tasks assigned to me" ]
         , taskView
-        ]
+        ] model
 
 taskView =
     table []
@@ -65,4 +68,4 @@ taskView =
 
 greetUser :: Model -> String
 greetUser model =
-    model.username ++ " - Dashboard"
+    model.username <> " - Dashboard"

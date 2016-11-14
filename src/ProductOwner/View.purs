@@ -1,12 +1,13 @@
 module ProductOwner.View where
 
-import Prelude
+import Prelude hiding (div)
 import Pux.Html
 import Pux.Html.Attributes
 import Pux.Html.Events
 import Model
-import Materialize.Materialize as Materialize
+import Materialize.Core as Materialize
 import Messages (Msg(..), ProductOwnerMsg(..))
+import Data.Array
 
 view :: Model -> Html Msg
 view model =
@@ -20,18 +21,18 @@ view model =
         _ -> home model
 
 
-template :: Model -> List (Html Msg) -> Html Msg
+template :: Model -> Array (Html Msg) -> Html Msg
 template model content =
     div [ className "center" ]
         (( Materialize.navbar
             (greetUser model)
             []
-            [ a [ onClick <| POMsg POHome ] [ text "Home" ]
-            , a [ onClick <| POMsg ManagePriorities ] [ text "Manage priorities" ]
-            , a [ onClick <| POMsg EditUserStories ] [ text "User stories" ]
-            , a [ onClick Logout ] [ text "Logout" ]
+            [ a [ onClick (const $ POMsg POHome) ] [ text "Home" ]
+            , a [ onClick (const $ POMsg ManagePriorities) ] [ text "Manage priorities" ]
+            , a [ onClick (const $ POMsg EditUserStories) ] [ text "User stories" ]
+            , a [ onClick (const Logout) ] [ text "Logout" ]
             ] )
-        :: content)
+        : content)
 
 home :: Model -> Html Msg
 home model =
@@ -146,4 +147,4 @@ editUserStories model =
 
 greetUser :: Model -> String
 greetUser model =
-    model.username ++ " - Dashboard"
+    model.username <> " - Dashboard"

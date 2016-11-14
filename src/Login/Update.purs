@@ -1,48 +1,32 @@
 module Login.Update (update) where
 
+import Prelude
+
 import Model
-import Messages (Msg(..), LoginMsg(..))
+import Messages
 
-update :: Model.Model -> LoginMsg -> (Model.Model Cmd Msg)
-update msg model =
-    case msg of
-        PerformLogin ->
-            performLogin model
+update :: Model -> LoginMsg -> Model
+update model PerformLogin = performLogin model
+update model (WriteUser user) = model { username = user }
+update model (WritePass pass) = model { password = pass }
 
-        WriteUser user ->
-            ( model { username = user } Cmd.none )
-
-        WritePass pass ->
-            ( model { password = pass }  Cmd.none )
-
-performLogin :: Model.Model -> (Model.Model Cmd Msg)
+performLogin :: Model -> Model
 performLogin model =
     case model.username of
         "productOwner" ->
-            ( model { loggedAs = Model.ProductOwner "Pepe el PO"
-                      , currentLocation = Model.ProductOwnerLocation Model.Home
-              }
-             Cmd.none
-            )
+            model { loggedAs = ProductOwner "Pepe el PO"
+                  , currentLocation = ProductOwnerLocation Home
+                  }
 
         "scrumMaster" ->
-            ( model { loggedAs = Model.ScrumMaster "Sancho el SM"
-                      , currentLocation = Model.ScrumMasterLocation Model.ScrumMasterHome
-              }
-             Cmd.none
-            )
+            model { loggedAs = ScrumMaster "Sancho el SM"
+                  , currentLocation = ScrumMasterLocation ScrumMasterHome
+                  }
 
         "developer" ->
-            ( model { loggedAs = Model.Developer "Dario el D"
-                      , currentLocation = Model.DeveloperLocation Model.DeveloperHome
-              }
-             Cmd.none
-            )
+            model { loggedAs = Developer "Dario el D"
+                  , currentLocation = DeveloperLocation DeveloperHome
+                  }
 
         _ ->
-            ( model { currentError = "Use productOwner, scrumMaster or developer as username for logging in" }
-             Cmd.none
-            )
-
-makeCmd :: Msg -> Cmd Msg
-makeCmd msg = Cmd.map (\_ -> msg) Cmd.none
+            model { currentError = "Use productOwner, scrumMaster or developer as username for logging in" }

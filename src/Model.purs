@@ -1,18 +1,11 @@
-module Model where  ( Model
-                    , Location(..)
-                    , User(..)
-                    , POLocation(..)
-                    , SMLocation(..)
-                    , DLocation(..)
-                    , initialModel
-                    )
+module Model where
 
 type Model =
-    { currentLocation: Location
-    , loggedAs: User
-    , username: String
-    , password: String
-    , currentError: String
+    { currentLocation :: Location
+    , loggedAs :: User
+    , username :: String
+    , password :: String
+    , currentError :: String
     }
 
 data Location
@@ -43,9 +36,10 @@ data User
     | NotLogged
 
 initialModel :: Model
-initialModel = { currentLocation : Login
-         , loggedAs : NotLogged
-         , username : ""
-         , password : ""
-         , currentError : ""
-         }
+initialModel =
+  { currentLocation : Login
+  , loggedAs : NotLogged
+  , username : ""
+  , password : ""
+  , currentError : ""
+  }

@@ -1,11 +1,13 @@
 module Login.View where
 
+import Prelude hiding (div)
 
 import Pux.Html
 import Pux.Html.Attributes
 import Pux.Html.Events
 import Model
 import Messages (Msg(..), LoginMsg(..))
+import Data.Array
 
 view :: Model -> Html Msg
 view model =
@@ -13,18 +15,18 @@ view model =
       [ div [ className "valign center-block" ]
             [ h1 [ className "center-align" ] [ text "Bon Hiato - Login" ]
             , p [ className "center-align loginError" ]
-                [ text <| loginError model ]
-            , input [ type' "text"
+                [ text $ loginError model ]
+            , input [ type_ "text"
                     , placeholder "User"
                     , onInput writeUser
                     ]
                     []
-            , input [ type' "password"
+            , input [ type_ "password"
                     , onInput writePass
                     ]
                     []
             , a [ className "center-align waves-effect waves-light btn"
-                , onClick <| LMsg PerformLogin ]
+                , onClick ( const $ LMsg PerformLogin) ]
                 [ text "Login" ]
             ]
       ]
@@ -33,10 +35,10 @@ loginError :: Model -> String
 loginError m =
     if m.currentError == ""
     then ""
-    else "Login failure: " ++ m.currentError
+    else "Login failure: " <> m.currentError
 
-writeUser :: String -> Msg
-writeUser s = LMsg <| WriteUser s
+writeUser :: FormEvent -> Msg
+writeUser s = LMsg $ WriteUser s.target.value
 
-writePass :: String -> Msg
-writePass s = LMsg <| WritePass s
+writePass :: FormEvent -> Msg
+writePass s = LMsg $ WritePass s.target.value

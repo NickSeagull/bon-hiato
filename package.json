@@ -1,0 +1,30 @@
+{
+  "name": "bon-hiato",
+  "version": "1.0.0",
+  "description": "- `npm install -g purescript bower pulp`: Installs required tools\r - `npm install`: Installs dependencies\r - `npm run build`: Compiles the project\r - `npm run start`: Runs the app",
+  "main": "dist/main.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "pulp build --to dist/compiled.js",
+    "start": "electron dist/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NickSeagull/bon-hiato.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NickSeagull/bon-hiato/issues"
+  },
+  "homepage": "https://github.com/NickSeagull/bon-hiato#readme",
+  "dependencies": {
+    "electron": "^1.4.6",
+    "jquery": "^3.1.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
+  }
+}

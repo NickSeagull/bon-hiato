@@ -1,12 +1,15 @@
 module ScrumMaster.View where
 
-import Prelude
+import Prelude hiding (div)
+
 import Pux.Html
 import Pux.Html.Attributes
 import Pux.Html.Events
 import Model
-import Materialize.Materialize as Materialize
-import Messages (Msg(..), ScrumMasterMsg(..))
+import Materialize.Core as Materialize
+import Messages
+
+import Data.Array
 
 view :: Model -> Html Msg
 view model =
@@ -21,20 +24,20 @@ view model =
             dataVisualization model
         _ -> home model
 
-template :: Model -> List (Html Msg) -> Html Msg
+template :: Model -> Array (Html Msg) -> Html Msg
 template model content =
-    div [ classname "center" ]
+    div [ className "center" ]
         (( Materialize.navbar
             (greetUser model)
             []
-            [ a [ onClick <| SMMsg SMHome ] [ text "Home" ]
-            , a [ onClick <| SMMsg Estimation] [ text "Estimation" ]
-            , a [ onClick <| SMMsg RiskManagement ] [ text "Risk management" ]
-            , a [ onClick <| SMMsg TaskAssignation ] [ text "Assign tasks" ]
-            , a [ onClick <| SMMsg DataVisualization ] [ text "Data visualization" ]
-            , a [ onClick Logout ] [ text "Logout" ]
+            [ a [ onClick (const $ SMMsg SMHome) ] [ text "Home" ]
+            , a [ onClick (const $ SMMsg Estimation)] [ text "Estimation" ]
+            , a [ onClick (const $ SMMsg RiskManagement) ] [ text "Risk management" ]
+            , a [ onClick (const $ SMMsg TaskAssignation) ] [ text "Assign tasks" ]
+            , a [ onClick (const $ SMMsg DataVisualization) ] [ text "Data visualization" ]
+            , a [ onClick (const $ Logout) ] [ text "Logout" ]
             ] )
-        :: content)
+        : content)
 
 home :: Model -> Html Msg
 home model =
@@ -45,9 +48,9 @@ estimation :: Model -> Html Msg
 estimation model =
     template model
         [ Materialize.row [] [ h2 [] [text "What do you want to estimate?" ] ]
-        , Materialize.row [] [ button [classname "btn"] [ text "Sprints" ] ]
-        , Materialize.row [] [ button [classname "btn"] [ text "Projects" ] ]
-        , Materialize.row [] [ button [classname "btn"] [ text "Requirements" ] ]
+        , Materialize.row [] [ button [className "btn"] [ text "Sprints" ] ]
+        , Materialize.row [] [ button [className "btn"] [ text "Projects" ] ]
+        , Materialize.row [] [ button [className "btn"] [ text "Requirements" ] ]
         ]
 
 riskManagement :: Model -> Html Msg
@@ -92,9 +95,9 @@ riskManagement model =
                 , td []
                     [ text "Tomorrow" ]
                 , td []
-                    [ button [classname "btn"] [text "Edit" ]]
+                    [ button [className "btn"] [text "Edit" ]]
                 ]
-            , button [classname "btn"] [ text "Add" ]
+            , button [className "btn"] [ text "Add" ]
             ]
         ]
 
@@ -128,7 +131,7 @@ taskAssignment model =
                 , td []
                     [ text "developer" ]
                 , td []
-                    [ button [classname "btn"] [text "Edit" ]]
+                    [ button [className "btn"] [text "Edit" ]]
                 ]
             ]
         ]
@@ -140,4 +143,4 @@ dataVisualization model =
 
 greetUser :: Model -> String
 greetUser model =
-    model.username ++ " - Dashboard"
+    model.username <> " - Dashboard"

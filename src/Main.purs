@@ -1,18 +1,22 @@
 module Main where
 
-import Pux (start, fromSimple, renderToDOM)
-import Model where (Model, Location (..), User(..), initialModel)
-import Update.update as update
-import View.view as view
+import Prelude
 
+import Pux (start, fromSimple, renderToDOM, CoreEffects)
+import Control.Monad.Eff (Eff)
+import Control.Monad.Eff.Exception (EXCEPTION)
+import Signal.Channel (CHANNEL)
+import Model
+import Update
+import View
+
+main :: forall e . Eff (err :: EXCEPTION, channel :: CHANNEL | e) Unit
 main = do
+  app <- start
+    { initialState : initialModel
+    , update : (fromSimple update)
+    , view : view
+    , inputs : []
+    }
 
-  App.program <- start
-      {   init          : init
-        , view          : view
-        , update        : update
-        , inputs: []
-      }
-
-init :: Model.Model
-init =  initialModel
+  renderToDOM "#app" app.html

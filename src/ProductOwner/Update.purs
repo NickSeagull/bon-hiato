@@ -4,14 +4,12 @@ import Prelude
 import Messages (Msg(..), ProductOwnerMsg(..))
 import Model (Model, Location(..), POLocation(..))
 
-update :: ProductOwnerMsg -> Model -> (Model, Cmd Msg)
+update :: ProductOwnerMsg -> Model -> Model
 update msg model =
     case msg of
         POHome ->
-            ( model { currentLocation = ProductOwnerLocation Home }, Cmd.none)
+            model { currentLocation = ProductOwnerLocation Home }
         ManagePriorities ->
-            ( model { currentLocation = ProductOwnerLocation PriorityManagement }, Cmd.none )
+            model { currentLocation = ProductOwnerLocation PriorityManagement }
         EditUserStories ->
-            ( model { currentLocation = ProductOwnerLocation UserStoryManagement }, Cmd.none )
-        -- _ -> ( model, Cmd.none)
---https://github.com/NickSeagull/bon-hiato.git
+            model { currentLocation = ProductOwnerLocation UserStoryManagement }

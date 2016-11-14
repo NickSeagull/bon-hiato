@@ -1,28 +1,29 @@
-module View where (..)
+module View where
 
-import Pux where (..)
-import Pux.Attributes where (..)
-import Model where (Model)
-import Login.Update
-import Login.View
-import ProductOwner.View
-import ScrumMaster.View
-import Developer.View
-import Messages where (Msg(..))
+import Pux.Html
+import Pux.Html.Attributes
+
+import Model
+import Login.Update as LUpdate
+import Login.View as LView
+import ProductOwner.View as POView
+import ScrumMaster.View as SMView
+import Developer.View as DView
+import Messages
 
 
 
 view :: Model -> Html Msg
 view model =
     case model.currentLocation of
-        Model.Login ->
-            Login.View.view model
+        Login ->
+            LView.view model
 
-        Model.ProductOwnerLocation _ ->
-            ProductOwner.View.view model
+        ProductOwnerLocation _ ->
+            POView.view model
 
-        Model.ScrumMasterLocation _ ->
-            ScrumMaster.View.view model
+        ScrumMasterLocation _ ->
+            SMView.view model
 
-        Model.DeveloperLocation _ ->
-            Developer.View.view model
+        DeveloperLocation _ ->
+            DView.view model

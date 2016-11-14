@@ -1,15 +1,15 @@
-module Update where (..)
+module Update where
 
-import Model where (..)
-import Messages where (..)
-import Login.Update
-import ProductOwner.Update
-import ScrumMaster.Update
+import Model
+import Messages
+import Login.Update as Login
+import ProductOwner.Update as ProductOwner
+import ScrumMaster.Update as ScrumMaster
 
 
-update :: Msg -> Model.Model -> Model.Model
-update (LMsg m) model = Login.Update.update m model
-update (SMMsg m) model = ScrumMaster.Update.update m model
-update (POMsg m) model = ProductOwner.Update.update m model
-update Logout model = ( Model.initialModel, Cmd.none )
-update _ model = (model, Cmd.none)
+update :: Msg -> Model-> Model
+update (LMsg m) model = Login.update model m
+update (SMMsg m) model = ScrumMaster.update m model
+update (POMsg m) model = ProductOwner.update m model
+update Logout model = initialModel
+update _ model = model
