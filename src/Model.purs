@@ -6,6 +6,11 @@ type Model =
     , username :: String
     , password :: String
     , currentError :: String
+    , projects :: Array Project
+    }
+
+type Project =
+    {name :: String
     }
 
 data Location
@@ -44,4 +49,5 @@ initialModel =
   , username : ""
   , password : ""
   , currentError : ""
+  , projects : [ { name : "GS1"}, {name : "Hacking"} ]
   }
