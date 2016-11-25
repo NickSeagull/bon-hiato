@@ -1,6 +1,11 @@
 module ProjectSelection.View where
 
+
+import Messages (Msg(..), ScrumMasterMsg(..))
+import Messages (Msg(..), ProductOwnerMsg(..))
+import Messages (Msg(..), DeveloperMsg(..))
 import Pux.Html.Attributes (className)
+import Pux.Html.Events (onClick)
 import Prelude hiding (div)
 
 import Pux.Html hiding (map)
@@ -17,13 +22,24 @@ view model =
             [ h1 [ className "center-align" ] [ text "Bon Hiato - Project selection" ]
             , ul[]
                 $ map (listProject model) model.projects
- 
-                ,a[className "waves-effect waves-light btn"] [text "New Project"]
+                , if loggedAsScrumMaster model.loggedAs then
+                    a[className "waves-effect waves-light btn"] [text "New Project"]
+                  else
+                    text ""
             ]
      ]
   where
-    loggedAsScrumMaster (ScrumMaster _) = true
+    loggedAsScrumMaster (ScrumMaster _)  = true
     loggedAsScrumMaster _ = false
+
+    loggedUser :: User -> Model -> Array(Attribute Msg)
+    loggedUser (ScrumMaster _) model = [className "waves-effect waves-light btn",
+                                        onClick (const $ SMMsg SMHome)]
+    loggedUser (ProductOwner _) model = [className "waves-effect waves-light btn",
+                                        onClick (const $ POMsg POHome)]
+    loggedUser (Developer _) model = [className "waves-effect waves-light btn",
+                                        onClick (const $ DMsg DHome)]
+    loggedUser _ model = []
 
     listProject model project =
       if loggedAsScrumMaster model.loggedAs then
@@ -31,7 +47,7 @@ view model =
         [
           div[className "row"][
             div[className "col s8"][
-              a[className "waves-effect waves-light btn"][text project.name]
+              a(loggedUser model.loggedAs model)[text project.name]
             ]
             ,div [className "col s2"][
               a[className "waves-effect waves-light btn orange"][text "Edit"]
@@ -41,10 +57,8 @@ view model =
             ]
           ]
         ]
-
-
       else
         li[]
           [
-            a[className "waves-effect waves-light btn"][text project.name]
+            a (loggedUser model.loggedAs model)[text project.name]
           ]
