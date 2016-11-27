@@ -1,14 +1,12 @@
 module ScrumMaster.View where
 
 import Prelude hiding (div)
-
 import Pux.Html
 import Pux.Html.Attributes
 import Pux.Html.Events
 import Model
 import Materialize.Core as Materialize
-import Messages
-
+import Messages (Msg(..), ScrumMasterMsg(..))
 import Data.Array
 
 view :: Model -> Html Msg
@@ -37,7 +35,7 @@ template model content =
             , a [ onClick (const $ SMMsg DataVisualization) ] [ text "Data visualization" ]
             , a [ onClick (const $ Logout) ] [ text "Logout" ]
             ] )
-        : content)
+          : content)
 
 home :: Model -> Html Msg
 home model =
