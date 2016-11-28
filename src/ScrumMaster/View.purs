@@ -1,17 +1,19 @@
 module ScrumMaster.View where
 
-import Prelude hiding (div)
 import Pux.Html
 import Pux.Html.Attributes
 import Pux.Html.Events
 import Model
+import Data.Array
 import Materialize.Core as Materialize
 import Messages (Msg(..), ScrumMasterMsg(..))
-import Data.Array
+import Prelude hiding (div)
 
 view :: Model -> Html Msg
 view model =
     case model.currentLocation of
+        ScrumMasterLocation AddTaskPage ->
+            addtask model
         ScrumMasterLocation EstimationPage ->
             estimation model
         ScrumMasterLocation RiskManagementPage ->
@@ -41,6 +43,35 @@ home :: Model -> Html Msg
 home model =
     template model
         [ p [] [ text "Welcome message or data" ] ]
+
+addtask :: Model -> Html Msg
+addtask model =
+    template model
+    [ table []
+         [ tr []
+             [ th []
+                 [ text "ID" ] ,
+               th []
+                 [ text "Name" ] ,
+               th []
+                 [ text "Description" ] ,
+               th []
+                 [ text "Priority" ] ,
+               th []
+                 [ text "Assigned" ] ]
+                 , tr []
+                      [ td []
+                          [ input [ type_ "text" ] [] ] ,
+                        td []
+                          [ input [ type_ "text" ] [] ] ,
+                        td []
+                          [ input [ type_ "text" ] [] ] ,
+                        td []
+                          [ input [ type_ "text" ] [] ] ,
+                        td []
+                          [ input [ type_ "text" ] [] ] ,
+                        td []
+                          [ a [ onClick (const $ SMMsg TaskAssignation) ] [ text "AddTask" ] ] ] ] ]
 
 estimation :: Model -> Html Msg
 estimation model =
@@ -73,7 +104,7 @@ riskManagement model =
                 , th []
                     [ text "By when" ]
                 , th []
-                    [ text "" ]
+                    [ ]
                 ]
              , tr []
                 [ td []
@@ -93,7 +124,7 @@ riskManagement model =
                 , td []
                     [ text "Tomorrow" ]
                 , td []
-                    [ button [className "btn"] [text "Edit" ]]
+                    [ button [className "btn"] [text "Edit" ] ]
                 ]
             , button [className "btn"] [ text "Add" ]
             ]
@@ -115,7 +146,7 @@ taskAssignment model =
                 , th []
                     [ text "Assignee" ]
                 , th []
-                    [ text "" ]
+                    [ a [ onClick (const $ SMMsg AddTask) ] [ text "AddTask" ] ]
                 ]
              , tr []
                 [ td []
