@@ -78,7 +78,44 @@ addTask model =
 editTask :: Model -> Html Msg
 editTask model =
     template model
-        [ p [] [ text "Hola" ] ]
+        [ table []
+             [ tr []
+                 [ th []
+                     [ text "ID" ] ,
+                   th []
+                     [ text "Name" ] ,
+                   th []
+                     [ text "Description" ] ,
+                   th []
+                     [ text "Priority" ] ,
+                   th []
+                     [ text "Assigned" ] ]
+                     , tr []
+                          [ td []
+                              [ input [ type_ "text" ] [] ] ,
+                            td []
+                              [ input [ type_ "text" ] [] ] ,
+                            td []
+                              [ input [ type_ "text" ] [] ] ,
+                            td []
+                              [ input [ type_ "text" ] [] ] ,
+                            td []
+                              [ input [ type_ "text" ] [] ] ,
+                            td []
+                              [ a [ onClick (const $ SMMsg TaskAssignation) ] [ text "Save" ] ] ] ,
+                          tr []
+                               [ td []
+                                   [ input [ type_ "text" ] [] ] ,
+                                 td []
+                                   [ input [ type_ "text" ] [] ] ,
+                                 td []
+                                   [ input [ type_ "text" ] [] ] ,
+                                 td []
+                                   [ input [ type_ "text" ] [] ] ,
+                                 td []
+                                   [ input [ type_ "text" ] [] ] ,
+                                 td []
+                                   [ a [ onClick (const $ SMMsg TaskAssignation) ] [ text "Save" ] ] ] ] ]
 estimation :: Model -> Html Msg
 estimation model =
     template model
@@ -158,15 +195,28 @@ taskAssignment model =
                 [ td []
                     [ text "TEST-01" ]
                 , td []
-                    [ text "Test" ]
+                    [ text "Get Task Request" ]
                 , td []
-                    [ text "Hodor hodor hodor hodor." ]
+                    [ text "Implement new get request" ]
                 , td []
                     [ text "1" ]
                 , td []
-                    [ text "developer" ]
+                    [ text "Alvaro" ]
                 , td []
-                    [ a [ onClick (const $ SMMsg EditTask) ] [ text "EditTask" ] ]
+                    [ a [ onClick (const $ SMMsg EditTask) ] [ text "EditTask" ] ] ]
+                , tr []
+                   [ td []
+                       [ text "TEST-02" ]
+                   , td []
+                       [ text "Post Task Request" ]
+                   , td []
+                       [ text "Implement new post request" ]
+                   , td []
+                       [ text "1" ]
+                   , td []
+                       [ text "Nick" ]
+                   , td []
+                       [ a [ onClick (const $ SMMsg EditTask) ] [ text "EditTask" ] ]
                 ]
             ]
         ]
