@@ -26,6 +26,7 @@ data SMLocation
     | TaskAssignationPage
     | DataVisualizationPage
     | AddTaskPage
+    | EditTaskPage
 
 data DLocation
     = DeveloperHome

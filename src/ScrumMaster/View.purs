@@ -12,8 +12,10 @@ import Prelude hiding (div)
 view :: Model -> Html Msg
 view model =
     case model.currentLocation of
+        ScrumMasterLocation EditTaskPage ->
+            editTask model
         ScrumMasterLocation AddTaskPage ->
-            addtask model
+            addTask model
         ScrumMasterLocation EstimationPage ->
             estimation model
         ScrumMasterLocation RiskManagementPage ->
@@ -44,8 +46,8 @@ home model =
     template model
         [ p [] [ text "Welcome message or data" ] ]
 
-addtask :: Model -> Html Msg
-addtask model =
+addTask :: Model -> Html Msg
+addTask model =
     template model
     [ table []
          [ tr []
@@ -73,6 +75,10 @@ addtask model =
                         td []
                           [ a [ onClick (const $ SMMsg TaskAssignation) ] [ text "AddTask" ] ] ] ] ]
 
+editTask :: Model -> Html Msg
+editTask model =
+    template model
+        [ p [] [ text "Hola" ] ]
 estimation :: Model -> Html Msg
 estimation model =
     template model
@@ -160,7 +166,7 @@ taskAssignment model =
                 , td []
                     [ text "developer" ]
                 , td []
-                    [ button [className "btn"] [text "Edit" ]]
+                    [ a [ onClick (const $ SMMsg EditTask) ] [ text "EditTask" ] ]
                 ]
             ]
         ]
