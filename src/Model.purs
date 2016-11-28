@@ -20,7 +20,6 @@ data Location
     | DeveloperLocation DLocation
     | ProjectScreen
 
-
 data POLocation
     = Home
     | PriorityManagement
@@ -49,5 +48,6 @@ initialModel =
   , username : ""
   , password : ""
   , currentError : ""
-  , projects : [ { name : "GS1"}, {name : "Hacking"} ]
+  , projects : [ { name : "GS1"}, {name : "NASA Project"},{name : "Hacking the Kernel"}
+  ,{name : "2G1C Project"} ]
   }
