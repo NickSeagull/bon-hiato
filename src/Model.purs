@@ -6,6 +6,11 @@ type Model =
     , username :: String
     , password :: String
     , currentError :: String
+    , projects :: Array Project
+    }
+
+type Project =
+    {name :: String
     }
 
 data Location
@@ -13,6 +18,7 @@ data Location
     | ProductOwnerLocation POLocation
     | ScrumMasterLocation SMLocation
     | DeveloperLocation DLocation
+    | ProjectScreen
 
 data POLocation
     = Home
@@ -42,4 +48,6 @@ initialModel =
   , username : ""
   , password : ""
   , currentError : ""
+  , projects : [ { name : "GS1"}, {name : "NASA Project"},{name : "Hacking the Kernel"}
+  ,{name : "2G1C Project"} ]
   }
