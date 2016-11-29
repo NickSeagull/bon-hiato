@@ -29,7 +29,7 @@ view model =
             ]
      ]
   where
-    loggedAsScrumMaster (ScrumMaster _)  = true
+    loggedAsScrumMaster (ProductOwner _)  = true
     loggedAsScrumMaster _ = false
 
     loggedUser :: User -> Model -> Array(Attribute Msg)

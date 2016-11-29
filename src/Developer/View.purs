@@ -1,8 +1,9 @@
 module Developer.View where
 
+import Data.Maybe (Maybe(..))
 import Prelude hiding (div)
 
-import Pux.Html
+import Pux.Html hiding (map)
 import Pux.Html.Attributes
 import Pux.Html.Events
 import Model
@@ -29,12 +30,13 @@ home :: Model -> Html Msg
 home model =
     template
         [ h1 [] [ text "Tasks assigned to me" ]
-        , taskView
+        , div [ className "row"] [taskView model]
         ] model
 
-taskView =
-    table []
-        [ tr []
+taskView :: Model -> Html Msg
+taskView model=
+    table [] $
+        (tr []
             [ th []
                 [ text "ID" ]
             , th []
@@ -44,26 +46,23 @@ taskView =
             , th []
                 [ text "" ]
             ]
-        , tr []
-            [ td []
-                [ text "TEST-01" ]
-            , td []
-                [ text "Test" ]
-            , td []
-                [ text "2.5" ]
-            , td []
-                [ a [ className "waves-effect waves-light btn" ] [ text "Log hours" ] ]
-            ]
-        , tr []
-            [ td []
-                [ text "TEST-02" ]
-            , td []
-                [ text "Test2" ]
-            , td []
-                [ text "7" ]
-            , td []
-                [ a [ className "waves-effect waves-light btn" ] [ text "Log hours" ] ]
-            ]
+        ) : renderCurrentTasks model.currentProject
+
+renderCurrentTasks :: Maybe Project -> Array (Html Msg)
+renderCurrentTasks Nothing = []
+renderCurrentTasks (Just project) = map renderTask project.myTasks
+
+renderTask :: Task -> Html Msg
+renderTask task =
+       tr []
+        [ td []
+            [ text $ show task.taskId ]
+        , td []
+            [ text task.taskName ]
+        , td []
+            [ text $ show task.taskLogHours]
+        , td []
+            [ text "" ]
         ]
 
 greetUser :: Model -> String

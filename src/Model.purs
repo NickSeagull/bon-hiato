@@ -1,5 +1,7 @@
 module Model where
 
+import Data.Maybe (Maybe(..))
+
 type Model =
     { currentLocation :: Location
     , loggedAs :: User
@@ -7,11 +9,19 @@ type Model =
     , password :: String
     , currentError :: String
     , projects :: Array Project
+    , currentProject :: Maybe Project
     }
 
 type Project =
     {name :: String
+    ,myTasks :: Array Task
     }
+
+type Task =
+  { taskId :: Int
+  , taskName :: String
+  , taskLogHours :: Int
+  }
 
 data Location
     = Login
@@ -43,13 +53,14 @@ data User
     | Developer String
     | NotLogged
 
+mockTasks = [ {taskId: 1, taskName: "ashdasjd", taskLogHours: 5},{taskId: 2, taskName: "aqwehjdchdahcad", taskLogHours: 7} ]
 initialModel :: Model
 initialModel =
-  { currentLocation : Login
+  { currentProject : Nothing
+  ,  currentLocation : Login
   , loggedAs : NotLogged
   , username : ""
   , password : ""
   , currentError : ""
-  , projects : [ { name : "GS1"}, {name : "NASA Project"},{name : "Hacking the Kernel"}
-  ,{name : "2G1C Project"} ]
+  , projects : [ { name : "GS1", myTasks : mockTasks}, {name : "NASA Project", myTasks : []},{name : "Hacking the Kernel", myTasks : []}]
   }
