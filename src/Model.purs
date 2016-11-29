@@ -1,7 +1,8 @@
 module Model where
 
 type Model =
-    { currentLocation :: Location
+    { myTasks :: Array Task
+    , currentLocation :: Location
     , loggedAs :: User
     , username :: String
     , password :: String
@@ -12,6 +13,12 @@ type Model =
 type Project =
     {name :: String
     }
+
+type Task =
+  { taskId :: Int
+  , taskName :: String
+  , taskLogHours :: Int
+  }
 
 data Location
     = Login
@@ -41,9 +48,11 @@ data User
     | Developer String
     | NotLogged
 
+mockTasks = [ {taskId: 1, taskName: "ashdasjd", taskLogHours: 5},{taskId: 2, taskName: "aqwehjdchdahcad", taskLogHours: 7} ]
 initialModel :: Model
 initialModel =
-  { currentLocation : Login
+  { myTasks : mockTasks
+  ,  currentLocation : Login
   , loggedAs : NotLogged
   , username : ""
   , password : ""
