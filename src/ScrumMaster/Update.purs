@@ -2,11 +2,13 @@ module ScrumMaster.Update (update) where
 
 import Prelude
 import Messages (Msg(..), ScrumMasterMsg(..))
-import Model (Model, Location(..), SMLocation(..))
+import Model (Location(..), Model, SMLocation(..))
 
 update :: ScrumMasterMsg -> Model -> Model
 update msg model =
     case msg of
+        SMHome ->
+            model { currentLocation = ScrumMasterLocation ScrumMasterHome}
         EditTask ->
             model { currentLocation = ScrumMasterLocation EditTaskPage }
         AddTask ->
