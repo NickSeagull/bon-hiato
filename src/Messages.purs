@@ -26,3 +26,5 @@ data ScrumMasterMsg
     | RiskManagement
     | TaskAssignation
     | DataVisualization
+    | AddTask
+    | EditTask

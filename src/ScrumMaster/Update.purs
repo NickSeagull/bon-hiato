@@ -7,6 +7,10 @@ import Model (Model, Location(..), SMLocation(..))
 update :: ScrumMasterMsg -> Model -> Model
 update msg model =
     case msg of
+        EditTask ->
+            model { currentLocation = ScrumMasterLocation EditTaskPage }
+        AddTask ->
+            model { currentLocation = ScrumMasterLocation AddTaskPage }
         Estimation ->
             model { currentLocation = ScrumMasterLocation EstimationPage }
         RiskManagement ->

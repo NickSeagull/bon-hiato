@@ -31,6 +31,8 @@ data SMLocation
     | RiskManagementPage
     | TaskAssignationPage
     | DataVisualizationPage
+    | AddTaskPage
+    | EditTaskPage
 
 data DLocation
     = DeveloperHome
