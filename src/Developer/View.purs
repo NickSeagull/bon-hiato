@@ -1,5 +1,6 @@
 module Developer.View where
 
+import Data.Maybe (Maybe(..))
 import Prelude hiding (div)
 
 import Pux.Html hiding (map)
@@ -45,7 +46,11 @@ taskView model=
             , th []
                 [ text "" ]
             ]
-        ) : map renderTask model.myTasks
+        ) : renderCurrentTasks model.currentProject
+
+renderCurrentTasks :: Maybe Project -> Array (Html Msg)
+renderCurrentTasks Nothing = []
+renderCurrentTasks (Just project) = map renderTask project.myTasks
 
 renderTask :: Task -> Html Msg
 renderTask task =

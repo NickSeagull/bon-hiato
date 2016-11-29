@@ -1,17 +1,20 @@
 module Model where
 
+import Data.Maybe (Maybe(..))
+
 type Model =
-    { myTasks :: Array Task
-    , currentLocation :: Location
+    { currentLocation :: Location
     , loggedAs :: User
     , username :: String
     , password :: String
     , currentError :: String
     , projects :: Array Project
+    , currentProject :: Maybe Project
     }
 
 type Project =
     {name :: String
+    ,myTasks :: Array Task
     }
 
 type Task =
@@ -51,12 +54,11 @@ data User
 mockTasks = [ {taskId: 1, taskName: "ashdasjd", taskLogHours: 5},{taskId: 2, taskName: "aqwehjdchdahcad", taskLogHours: 7} ]
 initialModel :: Model
 initialModel =
-  { myTasks : mockTasks
+  { currentProject : Nothing
   ,  currentLocation : Login
   , loggedAs : NotLogged
   , username : ""
   , password : ""
   , currentError : ""
-  , projects : [ { name : "GS1"}, {name : "NASA Project"},{name : "Hacking the Kernel"}
-  ,{name : "2G1C Project"} ]
+  , projects : [ { name : "GS1", myTasks : mockTasks}, {name : "NASA Project", myTasks : []},{name : "Hacking the Kernel", myTasks : []}]
   }

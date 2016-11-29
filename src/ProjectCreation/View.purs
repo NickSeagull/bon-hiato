@@ -1,4 +1,4 @@
-module ProjectSelection.View where
+module ProjectCreation.View where
 
 
 
