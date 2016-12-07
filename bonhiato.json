@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "userName": "developer1",
+      "userPass": "developer1",
+      "userType": "Developer"
+    },
+    {
+      "userName": "developer2",
+      "userPass": "developer2",
+      "userType": "Developer"
+    },
+    {
+      "userName": "scrumMaster1",
+      "userPass": "scrumMaster1",
+      "userType": "scrumMaster"
+    },
+    {
+      "userName": "developer",
+      "userPass": "",
+      "userType": "Developer"
+    }
+  ],
+  "projects": []
+}

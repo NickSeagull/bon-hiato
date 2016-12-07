@@ -1,32 +1,36 @@
 module Login.Update (update) where
 
 import Prelude
+import Database.LowDB
+import Control.Monad.Eff (Eff)
+import Control.Monad.Eff.Class (liftEff)
+import DOM.HTML.Event.EventTypes (open)
+import Data.Array (any)
+import Data.Maybe (Maybe(..))
+import Messages (LoginMsg(..), Msg(..))
+import Model (DLocation(..), EffModel(..), Location(..), Model, User(..))
+import Pux (noEffects)
 
-import Model
-import Messages
-
-update :: Model -> LoginMsg -> Model
+update :: Model -> LoginMsg -> EffModel ( lowdb :: LOWDB )
 update model PerformLogin = performLogin model
-update model (WriteUser user) = model { username = user }
-update model (WritePass pass) = model { password = pass }
+update model (WriteUser user) = noEffects $ model { username = user }
+update model (WritePass pass) = noEffects $ model { password = pass }
+update model (ChangeLocation) = noEffects $ model { currentLocation = ProjectScreen }
+update model (LoginError) = noEffects $ model { currentLocation = Login }
 
-performLogin :: Model -> Model
+performLogin :: Model -> EffModel ( lowdb :: LOWDB )
 performLogin model =
-    case model.username of
-        "productOwner" ->
-            model { loggedAs = ProductOwner "Pepe el PO"
-                  , currentLocation = ProjectScreen
-                  }
+    { state : model
+    , effects : [ liftEff $ checkWithDatabase model]
+    }
 
-        "scrumMaster" ->
-            model { loggedAs = ScrumMaster "Sancho el SM"
-                  , currentLocation = ProjectScreen
-                  }
+checkWithDatabase ::  forall e. Model -> Eff ( lowdb :: LOWDB | e ) Msg
+checkWithDatabase model = do
+    conn <- connectTo "bonhiato.json" Nothing
+    users :: Array User <- get conn "users"
+    if any (userIsCorrect model) users
+        then pure $ LMsg ChangeLocation
+        else pure $ LMsg LoginError
 
-        "developer" ->
-            model { loggedAs = Developer "Dario el D"
-                  , currentLocation = ProjectScreen 
-                  }
-
-        _ ->
-            model { currentError = "Use productOwner, scrumMaster or developer as username for logging in" }
+userIsCorrect :: Model -> User -> Boolean
+userIsCorrect m u = u.userName == m.username && u.userPass == m.password

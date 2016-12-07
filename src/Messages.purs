@@ -11,6 +11,8 @@ data LoginMsg
     = PerformLogin
     | WriteUser String
     | WritePass String
+    | ChangeLocation
+    | LoginError
 
 data ProductOwnerMsg
     = ManagePriorities

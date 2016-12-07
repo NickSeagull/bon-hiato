@@ -9,22 +9,24 @@ update :: Model -> LoginMsg -> Model
 update model PerformLogin = performLogin model
 update model (WriteUser user) = model { username = user }
 update model (WritePass pass) = model { password = pass }
+update model (ChangeLocation) = model { currentLocation = ProjectScreen }
+update model (LoginError) = model { currentLocation = Login }
 
 performLogin :: Model -> Model
 performLogin model =
     case model.username of
         "productOwner" ->
-            model { loggedAs = ProductOwner "Pepe el PO"
+            model { loggedAs = { userName : "", userPass : "", userType : ProductOwner "" }
                   , currentLocation = ProductOwnerLocation Home
                   }
 
         "scrumMaster" ->
-            model { loggedAs = ScrumMaster "Sancho el SM"
+            model { loggedAs = { userName : "Sancho el SM", userPass : "", userType :ScrumMaster "" }
                   , currentLocation = ScrumMasterLocation ScrumMasterHome
                   }
 
         "developer" ->
-            model { loggedAs = Developer "Dario el D"
+            model { loggedAs = { userName : "Dario el D", userPass : "", userType : Developer "" }
                   , currentLocation = DeveloperLocation DeveloperHome
                   }
 
