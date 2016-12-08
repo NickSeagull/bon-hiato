@@ -1,20 +1,20 @@
 module Main where
 
 import Prelude
-
-import Pux (start, fromSimple, renderToDOM, CoreEffects)
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Exception (EXCEPTION)
-import Signal.Channel (CHANNEL)
 import Model
 import Update
 import View
+import Control.Monad.Eff (Eff)
+import Control.Monad.Eff.Exception (EXCEPTION)
+import Database.LowDB (LOWDB)
+import Pux (start, fromSimple, renderToDOM, CoreEffects)
+import Signal.Channel (CHANNEL)
 
-main :: forall e . Eff (err :: EXCEPTION, channel :: CHANNEL | e) Unit
+main :: Eff (CoreEffects (lowdb :: LOWDB)) Unit
 main = do
   app <- start
     { initialState : initialModel
-    , update : (fromSimple update)
+    , update : update
     , view : view
     , inputs : []
     }

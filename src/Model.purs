@@ -1,6 +1,9 @@
 module Model where
 
+import Control.Monad.Eff.Exception (EXCEPTION)
+import Control.Monad.Aff (Aff)
 import Data.Maybe (Maybe(..))
+import Signal.Channel (CHANNEL)
 
 type Model =
     { currentLocation :: Location
@@ -12,6 +15,10 @@ type Model =
     , currentProject :: Maybe Project
     }
 
+type EffModel eff msg =
+    { state :: Model
+    , effects :: Array ( Aff (channel :: CHANNEL, err :: EXCEPTION | eff ) msg)
+    }
 type Project =
     {name :: String
     ,myTasks :: Array Task
@@ -47,10 +54,17 @@ data SMLocation
 data DLocation
     = DeveloperHome
 
-data User
-    = ProductOwner String
-    | ScrumMaster String
-    | Developer String
+type User =
+    {
+      userName :: String
+    , userPass :: String
+    , userType :: UserType
+    }
+
+data UserType
+    = ProductOwner
+    | ScrumMaster
+    | Developer
     | NotLogged
 
 mockTasks = [ {taskId: 1, taskName: "ashdasjd", taskLogHours: 5},{taskId: 2, taskName: "aqwehjdchdahcad", taskLogHours: 7} ]
@@ -58,7 +72,10 @@ initialModel :: Model
 initialModel =
   { currentProject : Nothing
   ,  currentLocation : Login
-  , loggedAs : NotLogged
+  , loggedAs : {  userName : ""
+                , userPass : ""
+                , userType : NotLogged
+               }
   , username : ""
   , password : ""
   , currentError : ""

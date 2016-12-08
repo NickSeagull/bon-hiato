@@ -1,5 +1,7 @@
 module Messages where
 
+import Model (User)
+
 data Msg
     = LMsg LoginMsg
     | POMsg ProductOwnerMsg
@@ -11,6 +13,8 @@ data LoginMsg
     = PerformLogin
     | WriteUser String
     | WritePass String
+    | LoginSuccess User
+    | LoginError
 
 data ProductOwnerMsg
     = ManagePriorities

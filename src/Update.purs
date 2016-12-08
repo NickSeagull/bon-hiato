@@ -1,17 +1,19 @@
 module Update where
 
+import Prelude
 import Model
 import Messages
+import Developer.Update as Developer
 import Login.Update as Login
 import ProductOwner.Update as ProductOwner
 import ScrumMaster.Update as ScrumMaster
-import Developer.Update as Developer
+import Database.LowDB (LOWDB)
+import Pux (noEffects)
 
 
-update :: Msg -> Model-> Model
+update :: Msg -> Model-> EffModel (lowdb::LOWDB) Msg
 update (LMsg m) model = Login.update model m
-update (SMMsg m) model = ScrumMaster.update m model
-update (POMsg m) model = ProductOwner.update m model
-update (DMsg m) model = Developer.update m model
-update Logout model = initialModel
-update _ model = model
+update (SMMsg m) model = noEffects $ ScrumMaster.update m model
+update (POMsg m) model = noEffects $ ProductOwner.update m model
+update (DMsg m) model = noEffects $ Developer.update m model
+update Logout model = noEffects $ initialModel
