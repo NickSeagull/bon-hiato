@@ -3,7 +3,6 @@ module Model where
 import Control.Monad.Eff.Exception (EXCEPTION)
 import Control.Monad.Aff (Aff)
 import Data.Maybe (Maybe(..))
-import Messages (Msg)
 import Signal.Channel (CHANNEL)
 
 type Model =
@@ -16,9 +15,9 @@ type Model =
     , currentProject :: Maybe Project
     }
 
-type EffModel eff =
+type EffModel eff msg =
     { state :: Model
-    , effects :: Array ( Aff (channel :: CHANNEL, err :: EXCEPTION | eff ) Msg)
+    , effects :: Array ( Aff (channel :: CHANNEL, err :: EXCEPTION | eff ) msg)
     }
 type Project =
     {name :: String

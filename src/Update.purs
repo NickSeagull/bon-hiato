@@ -11,7 +11,7 @@ import Database.LowDB (LOWDB)
 import Pux (noEffects)
 
 
-update :: Msg -> Model-> EffModel (lowdb::LOWDB)
+update :: Msg -> Model-> EffModel (lowdb::LOWDB) Msg
 update (LMsg m) model = Login.update model m
 update (SMMsg m) model = noEffects $ ScrumMaster.update m model
 update (POMsg m) model = noEffects $ ProductOwner.update m model
