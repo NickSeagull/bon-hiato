@@ -29,15 +29,15 @@ view model =
             ]
      ]
   where
-    loggedAsScrumMaster (ProductOwner _)  = true
+    loggedAsScrumMaster ProductOwner  = true
     loggedAsScrumMaster _ = false
 
     loggedUser :: UserType -> Model -> Array(Attribute Msg)
-    loggedUser (ScrumMaster _) model = [className "waves-effect waves-light btn",
+    loggedUser ScrumMaster model = [className "waves-effect waves-light btn",
                                         onClick (const $ SMMsg SMHome)]
-    loggedUser (ProductOwner _) model = [className "waves-effect waves-light btn",
+    loggedUser ProductOwner model = [className "waves-effect waves-light btn",
                                         onClick (const $ POMsg POHome)]
-    loggedUser (Developer _) model = [className "waves-effect waves-light btn",
+    loggedUser Developer model = [className "waves-effect waves-light btn",
                                         onClick (const $ DMsg DHome)]
     loggedUser _ model = []
 

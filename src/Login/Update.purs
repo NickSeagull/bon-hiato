@@ -37,9 +37,9 @@ checkWithDatabase model = do
 decodeUser :: { userType :: String, userName :: String , userPass :: String} -> User
 decodeUser u = 
     case u.userType of
-        "Developer" -> { userName : u.userName, userPass : u.userPass,  userType : Developer "" }
-        "ScrumMaster" -> { userName : u.userName, userPass : u.userPass,  userType : ScrumMaster "" }
-        "ProductOwner" -> { userName : u.userName, userPass : u.userPass,  userType : ProductOwner "" }
+        "Developer" -> { userName : u.userName, userPass : u.userPass,  userType : Developer }
+        "ScrumMaster" -> { userName : u.userName, userPass : u.userPass,  userType : ScrumMaster }
+        "ProductOwner" -> { userName : u.userName, userPass : u.userPass,  userType : ProductOwner }
         _ -> { userName : u.userName, userPass : u.userPass,  userType : NotLogged }
 
 userIsCorrect :: Model -> User -> Boolean

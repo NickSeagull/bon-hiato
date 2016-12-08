@@ -60,10 +60,11 @@ type User =
     , userPass :: String
     , userType :: UserType
     }
+
 data UserType
-    = ProductOwner String
-    | ScrumMaster String
-    | Developer String
+    = ProductOwner
+    | ScrumMaster
+    | Developer
     | NotLogged
 
 mockTasks = [ {taskId: 1, taskName: "ashdasjd", taskLogHours: 5},{taskId: 2, taskName: "aqwehjdchdahcad", taskLogHours: 7} ]
