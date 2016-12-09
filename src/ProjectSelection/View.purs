@@ -1,19 +1,19 @@
 module ProjectSelection.View where
 
 
-import Messages (Msg(..), ScrumMasterMsg(..))
-import Messages (Msg(..), ProductOwnerMsg(..))
-import Messages (Msg(..), DeveloperMsg(..))
-import Pux.Html.Attributes (className)
-import Pux.Html.Events (onClick)
-import Prelude hiding (div)
-
-import Pux.Html hiding (map)
 import Pux.Html.Attributes
 import Pux.Html.Events
 import Model
-import Messages (Msg(..), LoginMsg(..))
 import Data.Array
+import Data.Maybe (Maybe(Just))
+import Messages (Msg(..), ScrumMasterMsg(..))
+import Messages (Msg(..), ProductOwnerMsg(..))
+import Messages (Msg(..), DeveloperMsg(..))
+import Messages (Msg(..), LoginMsg(..))
+import Pux.Html.Attributes (className)
+import Pux.Html.Events (onClick)
+import Prelude hiding (div)
+import Pux.Html hiding (map)
 
 view :: Model -> Html Msg
 view model =
@@ -32,14 +32,20 @@ view model =
     loggedAsScrumMaster ProductOwner  = true
     loggedAsScrumMaster _ = false
 
-    loggedUser :: UserType -> Model -> Array(Attribute Msg)
-    loggedUser ScrumMaster model = [className "waves-effect waves-light btn",
-                                        onClick (const $ SMMsg SMHome)]
-    loggedUser ProductOwner model = [className "waves-effect waves-light btn",
-                                        onClick (const $ POMsg POHome)]
-    loggedUser Developer model = [className "waves-effect waves-light btn",
-                                        onClick (const $ DMsg DHome)]
-    loggedUser _ model = []
+    loggedUser :: UserType -> Maybe Project -> Model -> Array(Attribute Msg)
+    loggedUser ScrumMaster project model =
+        [ className "waves-effect waves-light btn"
+        , onClick (const $ SMMsg $ SMHome project)
+        ]
+    loggedUser ProductOwner project model =
+        [ className "waves-effect waves-light btn"
+        , onClick (const $ POMsg $ POHome project)
+        ]
+    loggedUser Developer project model =
+        [ className "waves-effect waves-light btn"
+        , onClick (const $ DMsg $ DHome project)
+        ]
+    loggedUser _ project model = []
 
     listProject model project =
       if loggedAsScrumMaster model.loggedAs.userType then
@@ -47,7 +53,7 @@ view model =
         [
           div[className "row"][
             div[className "col s8"][
-              a(loggedUser model.loggedAs.userType model)[text project.name]
+              a(loggedUser model.loggedAs.userType (Just project) model)[text project.name]
             ]
             ,div [className "col s2"][
               a[className "waves-effect waves-light btn orange"][text "Edit"]
@@ -60,5 +66,5 @@ view model =
       else
         li[]
           [
-            a (loggedUser model.loggedAs.userType model)[text project.name]
+            a (loggedUser model.loggedAs.userType (Just project) model)[text project.name]
           ]
