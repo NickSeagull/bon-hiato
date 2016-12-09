@@ -1,6 +1,7 @@
 module Messages where
 
-import Model (User)
+import Data.Maybe (Maybe)
+import Model (User, Project)
 
 data Msg
     = LMsg LoginMsg
@@ -19,13 +20,13 @@ data LoginMsg
 data ProductOwnerMsg
     = ManagePriorities
     | EditUserStories
-    | POHome
+    | POHome (Maybe Project)
 
 data DeveloperMsg
-    = DHome
+    = DHome (Maybe Project)
 
 data ScrumMasterMsg
-    = SMHome
+    = SMHome (Maybe Project)
     | Estimation
     | RiskManagement
     | TaskAssignation

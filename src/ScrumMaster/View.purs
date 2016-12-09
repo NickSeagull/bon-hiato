@@ -6,6 +6,7 @@ import Pux.Html.Events
 import Model
 import Data.Array
 import Materialize.Core as Materialize
+import Data.Maybe (Maybe(Just), fromMaybe)
 import Messages (Msg(..), ScrumMasterMsg(..))
 import Prelude hiding (div)
 
@@ -34,7 +35,7 @@ template model content =
         (( Materialize.navbar
             (greetUser model)
             []
-            [ a [ onClick (const $ SMMsg SMHome) ] [ text "Home" ]
+            [ a [ onClick (const $ SMMsg $ SMHome model.currentProject) ] [ text "Home" ]
             , a [ onClick (const $ SMMsg Estimation)] [ text "Estimation" ]
             , a [ onClick (const $ SMMsg RiskManagement) ] [ text "Risk management" ]
             , a [ onClick (const $ SMMsg TaskAssignation) ] [ text "Assign tasks" ]
@@ -46,7 +47,13 @@ template model content =
 home :: Model -> Html Msg
 home model =
     template model
-        [ p [] [ text "Welcome message or data" ] ]
+        [ p [] [ text $ projectName model ] ]
+
+projectName :: Model -> String
+projectName model =
+    case model.currentProject of
+        Just p -> p.name
+        _      -> "No Project"
 
 addTask :: Model -> Html Msg
 addTask model =

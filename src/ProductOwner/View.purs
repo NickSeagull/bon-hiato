@@ -1,13 +1,14 @@
 module ProductOwner.View where
 
-import Prelude hiding (div)
 import Pux.Html
 import Pux.Html.Attributes
 import Pux.Html.Events
 import Model
-import Materialize.Core as Materialize
-import Messages (Msg(..), ProductOwnerMsg(..))
 import Data.Array
+import Materialize.Core as Materialize
+import Data.Maybe (Maybe(Just))
+import Messages (Msg(..), ProductOwnerMsg(..))
+import Prelude hiding (div)
 
 view :: Model -> Html Msg
 view model =
@@ -27,7 +28,7 @@ template model content =
         (( Materialize.navbar
             (greetUser model)
             []
-            [ a [ onClick (const $ POMsg POHome) ] [ text "Home" ]
+            [ a [ onClick (const $ POMsg $ POHome model.currentProject) ] [ text "Home" ]
             , a [ onClick (const $ POMsg ManagePriorities) ] [ text "Manage priorities" ]
             , a [ onClick (const $ POMsg EditUserStories) ] [ text "User stories" ]
             , a [ onClick (const Logout) ] [ text "Logout" ]
@@ -37,7 +38,13 @@ template model content =
 home :: Model -> Html Msg
 home model =
     template model
-        [ p [] [ text "Welcome message or data" ] ]
+        [ p [] [ text $ projectName model ] ]
+
+projectName :: Model -> String
+projectName model =
+    case model.currentProject of
+        Just p -> p.name
+        _      -> "No Project"
 
 priorityManagement :: Model -> Html Msg
 priorityManagement model =
